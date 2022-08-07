@@ -2,7 +2,8 @@
 
 #### Guardarei aqui todas as coisas que fiz durante meu tempo na minha faculdade de Engenharia da Computação no IESB.
 
-![IESB](https://www.iesb.br/content/themes/iesb-chleba-themosis/assets/imagens/logo.png)
+![IESB](https://afipeasindical.org.br/content/uploads/2015/06/iesb-760x400.jpg)
+
 
 #### Até o momento tenho gostado muito das coisas que aprendi, com professores bons que puderam sanar muitas dúvidas minhas.
 #### No entanto ainda estou no 3º Semestre e agora eu creio que irei aprender Java na matéria de orientação à objetos e também vou aprender Engenharia de Software.
