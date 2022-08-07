@@ -8,14 +8,14 @@ int main(){
     fp = fopen("C:\\VSCode\\C\\Arquivo\\teste.txt","r");
 
     if(fp == NULL){
-        printf("Mamou");
+        printf("Não foi possivel abrir o arquivo");
         return 1;
     }
 
     fp2 = fopen("C:\\VSCode\\C\\Arquivo\\testes1.txt","w");
 
     if(fp2 == NULL){
-        printf("Mamou");
+        printf("Não foi possivel abrir o arquivo");
         return 1;
     }
     copiar(fp,fp2);
