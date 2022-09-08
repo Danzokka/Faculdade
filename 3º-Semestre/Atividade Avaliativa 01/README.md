@@ -19,9 +19,9 @@
     - Leve: decrementa em 50 gramas o peso.
 ### Além do método exibir, o qual exibe o IMC e a característica do IMC.
 
-<center>
+<p align="center">
     <img src="https://c.tenor.com/ogcqOL-jVEwAAAAM/xandao-xand%C3%A3o.gif" alt="ENTAO TOMA ESSE DOUBLE BICEPS" width = "50%" height = "50%" center>
-</center>
+</p>
 
 ### Já no segundo exercício tinhamos de montar uma classe Calculadora, a qual possui apenas o atributo resultado, o qual é inicializado em 0 e possui os seguintes métodos:
     - Somar: que recebe um valor como parâmetro e adiciona esse valor ao atributo resultado. 
@@ -32,6 +32,6 @@
     - Zerar: que zera o atributo resultado. 
     - Exibir: que imprime na tela o valor do resultado.
 
-<center>
+<p align="center">
     <img src="https://infograficos-estaticos.s3.amazonaws.com/calculadora-novas-aliquotas-previdencia/images/calc-icon.gif" alt = "Calculadora" height = "50%" width = "50%">
-</center>
+</p>
