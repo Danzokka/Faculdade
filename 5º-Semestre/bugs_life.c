@@ -17,12 +17,12 @@ The output for every scenario is a line containing “Scenario #i:”, where i i
 int grafo[MAXIMO_BUGS][MAXIMO_BUGS]; //Representa o grafo de interações entre os bugs
 int cor[MAXIMO_BUGS]; //Representa a cor de cada bug (-1 = não visitado, 0 = cor 1, 1 = cor 2)
 
-bool verifica_bipartido(int numero_de_bugs, int bug) {
+bool dfs(int numero_de_bugs, int bug) {
     for (int i = 0; i < numero_de_bugs; i++) { 
         if (grafo[bug][i]) {
             if (cor[i] == -1) {
                 cor[i] = 1 - cor[bug]; //Se o bug i não foi visitado, atribui a cor oposta ao bug atual
-                if (!verifica_bipartido(numero_de_bugs, i)) {
+                if (!dfs(numero_de_bugs, i)) {
                     return false; //Se o grafo não for bipartido, retorna false
                 }
             } else if (cor[i] == cor[bug]) {
@@ -63,7 +63,7 @@ int main() {
         for (int i = 0; i < numero_de_bugs; i++) {
             if (cor[i] == -1) {
                 cor[i] = 0;
-                if (!verifica_bipartido(numero_de_bugs, i)) {
+                if (!dfs(numero_de_bugs, i)) {
                     resultado = false; //Se o grafo não for bipartido, o resultado é falso
                     break;
                 }
