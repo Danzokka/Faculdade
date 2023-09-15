@@ -20,48 +20,48 @@ Constraints:
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct node{
-    int value;
-    struct node *next;
-}node;
+typedef struct no{
+    int valor;
+    struct no *next;
+}no;
 
-typedef struct queue{
-    node *head;
-    node *tail;
-}queue;
+typedef struct fila{
+    no *inicio;
+    no *fim;
+}fila;
 
-void init(queue *q){
-    q->head = NULL;
-    q->tail = NULL;
+void inicializar(fila *q){
+    q->inicio = NULL;
+    q->fim = NULL;
 }
 
-void enqueue(queue *q, int value){
-    node *new_node = (node*) malloc(sizeof(node));
-    new_node->value = value;
-    new_node->next = NULL;
-    if(q->head == NULL){
-        q->head = new_node;
-        q->tail = new_node;
+void enfileirar(fila *q, int valor){
+    no *novo_no = (no*) malloc(sizeof(no));
+    novo_no->valor = valor;
+    novo_no->next = NULL;
+    if(q->inicio == NULL){
+        q->inicio = novo_no;
+        q->fim = novo_no;
     }else{
-        q->tail->next = new_node;
-        q->tail = new_node;
+        q->fim->next = novo_no;
+        q->fim = novo_no;
     }
 }
 
-int dequeue(queue *q){
-    if(q->head == NULL){
+int desinfileira(fila *q){
+    if(q->inicio == NULL){
         return -1;
     }else{
-        node *aux = q->head;
-        int value = aux->value;
-        q->head = aux->next;
+        no *aux = q->inicio;
+        int valor = aux->valor;
+        q->inicio = aux->next;
         free(aux);
-        return value;
+        return valor;
     }
 }
 
-int empty(queue *q){
-    if(q->head == NULL){
+int empty(fila *q){
+    if(q->inicio == NULL){
         return 1;
     }else{
         return 0;
@@ -70,7 +70,7 @@ int empty(queue *q){
 
 int main(){
     int t, n, m, i, j, x, y, *visited, *distance, *adj;
-    queue q;
+    fila q;
     scanf("%d", &t);
     while(t--){
         scanf("%d %d", &n, &m);
@@ -85,14 +85,14 @@ int main(){
             adj[x - 1 + (y - 1) * n] = 1;
             adj[y - 1 + (x - 1) * n] = 1;
         }
-        init(&q);
-        enqueue(&q, 0);
+        inicializar(&q);
+        enfileirar(&q, 0);
         visited[0] = 1;
         while(!empty(&q)){
-            x = dequeue(&q);
+            x = desinfileira(&q);
             for(i = 0; i < n; i++){
                 if(adj[x + i * n] == 1 && visited[i] == 0){
-                    enqueue(&q, i);
+                    enfileirar(&q, i);
                     visited[i] = 1;
                     distance[i] = distance[x] + 1;
                 }
