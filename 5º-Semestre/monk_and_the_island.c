@@ -69,36 +69,36 @@ int empty(fila *q){
 }
 
 int main(){
-    int t, n, m, i, j, x, y, *visited, *distance, *adj;
+    int t, n, m, i, j, x, y, *visitado, *distancia, *matriz_adjacencia;
     fila q;
     scanf("%d", &t);
     while(t--){
         scanf("%d %d", &n, &m);
-        visited = (int*) malloc(sizeof(int) * n);
-        distance = (int*) malloc(sizeof(int) * n);
-        adj = (int*) malloc(sizeof(int) * n * n);
-        memset(adj, 0, sizeof(int) * n * n);
-        memset(visited, 0, sizeof(int) * n);
-        memset(distance, 0, sizeof(int) * n);
+        visitado = (int*) malloc(sizeof(int) * n);
+        distancia = (int*) malloc(sizeof(int) * n);
+        matriz_adjacencia = (int*) malloc(sizeof(int) * n * n);
+        memset(matriz_adjacencia, 0, sizeof(int) * n * n);
+        memset(visitado, 0, sizeof(int) * n);
+        memset(distancia, 0, sizeof(int) * n);
         for(i = 0; i < m; i++){
             scanf("%d %d", &x, &y);
-            adj[x - 1 + (y - 1) * n] = 1;
-            adj[y - 1 + (x - 1) * n] = 1;
+            matriz_adjacencia[x - 1 + (y - 1) * n] = 1;
+            matriz_adjacencia[y - 1 + (x - 1) * n] = 1;
         }
         inicializar(&q);
         enfileirar(&q, 0);
-        visited[0] = 1;
+        visitado[0] = 1;
         while(!empty(&q)){
             x = desinfileira(&q);
             for(i = 0; i < n; i++){
-                if(adj[x + i * n] == 1 && visited[i] == 0){
+                if(matriz_adjacencia[x + i * n] == 1 && visitado[i] == 0){
                     enfileirar(&q, i);
-                    visited[i] = 1;
-                    distance[i] = distance[x] + 1;
+                    visitado[i] = 1;
+                    distancia[i] = distancia[x] + 1;
                 }
             }
         }
-        printf("%d\n", distance[n - 1]);
+        printf("%d\n", distancia[n - 1]);
     }
     return 0;
 }
