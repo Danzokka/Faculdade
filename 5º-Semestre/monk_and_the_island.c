@@ -27,46 +27,46 @@ Constraints:
 
 typedef struct no{
     int valor;
-    struct no *next;
+    struct no *proximo;
 }no;
 
 typedef struct fila{
-    no *inicio;
-    no *fim;
+    no *primeiro;
+    no *ultimo;
 }fila;
 
-void inicializar(fila *q){
-    q->inicio = NULL;
-    q->fim = NULL;
+void inicializar(fila *fila){
+    fila->primeiro = NULL;
+    fila->ultimo = NULL;
 }
 
-void enfileirar(fila *q, int valor){
+void enfileirar(fila *fila, int valor){
     no *novo_no = (no*) malloc(sizeof(no));
     novo_no->valor = valor;
-    novo_no->next = NULL;
-    if(q->inicio == NULL){
-        q->inicio = novo_no;
-        q->fim = novo_no;
+    novo_no->proximo = NULL;
+    if(fila->primeiro == NULL){
+        fila->primeiro = novo_no;
+        fila->ultimo = novo_no;
     }else{
-        q->fim->next = novo_no;
-        q->fim = novo_no;
+        fila->ultimo->proximo = novo_no;
+        fila->ultimo = novo_no;
     }
 }
 
-int desinfileira(fila *q){
-    if(q->inicio == NULL){
+int desinfileira(fila *fila){
+    if(fila->primeiro == NULL){
         return -1;
     }else{
-        no *aux = q->inicio;
+        no *aux = fila->primeiro;
         int valor = aux->valor;
-        q->inicio = aux->next;
+        fila->primeiro = aux->proximo;
         free(aux);
         return valor;
     }
 }
 
-int eh_vazio(fila *q){
-    if(q->inicio == NULL){
+int eh_vazio(fila *fila){
+    if(fila->primeiro == NULL){
         return 1;
     }else{
         return 0;
