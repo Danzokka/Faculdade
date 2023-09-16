@@ -1,3 +1,8 @@
+/*
+Aluno: Rafael Dantas Boeira
+Matrícula: 2122082004
+*/
+
 /*Problem
 Monk visits the land of Islands. There are a total of N islands numbered from 1 to N. Some pairs of islands are connected to each other by Bidirectional bridges running over water.
 Monk hates to cross these bridges as they require a lot of efforts. He is standing at Island #1 and wants to reach the Island #N. Find the minimum the number of bridges that he shall have to cross, if he takes the optimal route.
@@ -60,7 +65,7 @@ int desinfileira(fila *q){
     }
 }
 
-int empty(fila *q){
+int eh_vazio(fila *q){
     if(q->inicio == NULL){
         return 1;
     }else{
@@ -69,36 +74,38 @@ int empty(fila *q){
 }
 
 int main(){
-    int t, n, m, i, j, x, y, *visitado, *distancia, *matriz_adjacencia;
-    fila q;
-    scanf("%d", &t);
-    while(t--){
-        scanf("%d %d", &n, &m);
-        visitado = (int*) malloc(sizeof(int) * n);
-        distancia = (int*) malloc(sizeof(int) * n);
-        matriz_adjacencia = (int*) malloc(sizeof(int) * n * n);
-        memset(matriz_adjacencia, 0, sizeof(int) * n * n);
-        memset(visitado, 0, sizeof(int) * n);
-        memset(distancia, 0, sizeof(int) * n);
-        for(i = 0; i < m; i++){
+    int casos, 
+    vertices, qtdArestas, i, j, x, y, *visitado, *distancia, *matriz_adjacencia; // x e y são as arestas
+
+    fila fila;
+    scanf("%d", &casos);
+    while(casos--){
+        scanf("%d %d", &vertices, &qtdArestas);
+        visitado = (int*) malloc(sizeof(int) * vertices);
+        distancia = (int*) malloc(sizeof(int) * vertices);
+        matriz_adjacencia = (int*) malloc(sizeof(int) * vertices * vertices);
+        memset(matriz_adjacencia, 0, sizeof(int) * vertices * vertices);
+        memset(visitado, 0, sizeof(int) * vertices);
+        memset(distancia, 0, sizeof(int) * vertices);
+        for(i = 0; i < qtdArestas; i++){
             scanf("%d %d", &x, &y);
-            matriz_adjacencia[x - 1 + (y - 1) * n] = 1;
-            matriz_adjacencia[y - 1 + (x - 1) * n] = 1;
+            matriz_adjacencia[x - 1 + (y - 1) * vertices] = 1;
+            matriz_adjacencia[y - 1 + (x - 1) * vertices] = 1;
         }
-        inicializar(&q);
-        enfileirar(&q, 0);
+        inicializar(&fila);
+        enfileirar(&fila, 0);
         visitado[0] = 1;
-        while(!empty(&q)){
-            x = desinfileira(&q);
-            for(i = 0; i < n; i++){
-                if(matriz_adjacencia[x + i * n] == 1 && visitado[i] == 0){
-                    enfileirar(&q, i);
+        while(!eh_vazio(&fila)){
+            x = desinfileira(&fila);
+            for(i = 0; i < vertices; i++){
+                if(matriz_adjacencia[x + i * vertices] == 1 && visitado[i] == 0){
+                    enfileirar(&fila, i);
                     visitado[i] = 1;
                     distancia[i] = distancia[x] + 1;
                 }
             }
         }
-        printf("%d\n", distancia[n - 1]);
+        printf("%d\n", distancia[vertices - 1]);
     }
     return 0;
 }
