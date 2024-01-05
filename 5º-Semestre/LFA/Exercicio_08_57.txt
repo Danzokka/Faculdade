@@ -1,0 +1,127 @@
+Aluno: Rafael Dantas Boeira
+Matrícula: 2122082004
+
+G = ({S, X, K, Y}, {x, y, z}, P, S)
+P = {< S > ::= < K > < Y >
+            |  < X > < K >
+     < X > ::= < X > < K >
+            |  x
+     < K > ::= < Y > < K >
+            |  < X > < X >
+            |  x
+     < Y > ::= y
+            |  z }
+
+Renomeação em ordem crescente qualquer
+
+G = ({A, B, C, D}, {x, y, z}, P, A)
+P = {< A > ::= < C > < D >
+            |  < B > < C >
+     < B > ::= < B > < C >
+            |  x
+     < C > ::= < D > < C >
+            |  < B > < B >
+            |  x
+     < D > ::= y
+            |  z }
+
+< Ar > -> < As > a 
+
+G = ({A, B, C, D}, {x, y, z}, P, A)
+P = {< A > ::= < C > < D >
+            |  < B > < C >
+     < B > ::= < B > < C >
+            |  x
+     < C > ::= < D > < C >
+            |  < B > < C > < B >
+            |  x < B >
+            |  x
+     < D > ::= y
+            |  z }
+
+< Ar > -> < Ar > a
+
+G = ({A, B, C, D, B1}, {x, y, z}, P, A)
+P = {< A > ::= < C > < D >
+            |  < B > < C >
+     < B > ::= x < B1 >
+            |  x
+     < B1 >::= < C > < B1 >
+            |  < C >
+     < C > ::= < D > < C >
+            |  x < B1 > < C > < B >
+            |  x < C > < B >
+            |  x < B >
+            |  x
+     < D > ::= y
+            |  z }
+
+Um terminal no inicio do lado direito de cada produção
+< Ar > -> < Ar > a
+
+G = ({A, B, C, D, B1}, {x, y, z}, P, A)
+P = {< A > ::= y < C > < D >
+            |  z < C > < D >
+            |  x < B1 > < C > < B > < D >
+            |  x < C > < B > < D >
+            |  x < B > < D >
+            |  x < D >
+            |  x < B1 > < C >
+            |  x < C >
+     < B > ::= x < B1 >
+            |  x
+     < B1 >::= y < C > < B1 >
+            |  z < C > < B1 >
+            |  x < B1 > < C > < B > < B1 >
+            |  x < C > < B > < B1 >
+            |  x < B > < B1 >
+            |  x < B1 >
+            |  y < C >
+            |  z < C >
+            |  x < B1 > < C > < B >
+            |  x < C > < B >
+            |  x < B >
+            |  x
+     < C > ::= y < C >
+            |  z < C >
+            |  x < B1 > < C > < B >
+            |  x < C > < B >
+            |  x < B >
+            |  x
+     < D > ::= y
+            |  z }
+
+Produções da forma < Ar > -> a onde a é composto por variáveis
+
+G = ({A, B, C, D, B1}, {x, y, z}, P, A)
+P = {< A > ::= y < C > < D >
+            |  z < C > < D >
+            |  x < B1 > < C > < B > < D >
+            |  x < C > < B > < D >
+            |  x < B > < D >
+            |  x < D >
+            |  x < B1 > < C >
+            |  x < C >
+     < B > ::= x < B1 >
+            |  x
+     < B1 >::= y < C > < B1 >
+            |  z < C > < B1 >
+            |  x < B1 > < C > < B > < B1 >
+            |  x < C > < B > < B1 >
+            |  x < B > < B1 >
+            |  x < B1 >
+            |  y < C >
+            |  z < C >
+            |  x < B1 > < C > < B >
+            |  x < C > < B >
+            |  x < B >
+            |  x
+     < C > ::= y < C >
+            |  z < C >
+            |  x < B1 > < C > < B >
+            |  x < C > < B >
+            |  x < B >
+            |  x
+     < D > ::= y
+            |  z }
+
