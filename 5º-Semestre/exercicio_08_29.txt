@@ -1,0 +1,180 @@
+Rafael Dantas Boeira
+2122082004
+
+G = ({S, A, B, C, D, E, F}, {a, b, c, d}, P, S)
+P = {< S >  ->  a < A > b < B >
+            |   c d < C >
+            |   < E >
+     < A >  ->  < A >
+            |   < B > c
+     < B >  ->  d < A >
+            |   c < B > d c
+     < C >  ->  a b < E > < D > d
+            |   < E > a b c
+            |   a c < D > b
+     < D >  ->  < D > a c
+            |   c < D > a
+            |   a c d
+     < E >  ->  a < B > b < A > c
+            |   ε
+     < F >  ->  < C > < C > c }
+
+Iteração | Variáveis
+ 0       | ∅
+ 1       | {<E>}
+ 2       | {<E>, <S>}
+ 3       | {<E>, <S>}
+
+G = ({S, A, B, C, D, E, F}, {a, b, c, d}, P, S)
+P = {< S >  ->  a < A > b < B >
+            |   c d < C >
+            |   < E >
+     < A >  ->  < A >
+            |   < B > c
+     < B >  ->  d < A >
+            |   c < B > d c
+     < C >  ->  a b < E > < D > d
+            |   a b < D > d
+            |   < E > a b c
+            |   a b c
+            |   a c < D > b
+     < D >  ->  < D > a c
+            |   c < D > a
+            |   a c d
+     < E >  ->  a < B > b < A > c
+     < F >  ->  < C > < C > c }
+
+Fecho (S): {E}
+Fecho (A): ∅
+Fecho (B): ∅
+Fecho (C): ∅
+Fecho (D): ∅
+Fecho (E): ∅
+Fecho (F): ∅
+
+G = ({S, A, B, C, D, E, F}, {a, b, c, d}, P, S)
+P = {< S >  ->  a < A > b < B >
+            |   c d < C >
+            |   < E >
+            |   a < B > b < A > c
+     < A >  ->  < A >
+            |   < B > c
+     < B >  ->  d < A >
+            |   c < B > d c
+     < C >  ->  a b < E > < D > d
+            |   a b < D > d
+            |   < E > a b c
+            |   a b c
+            |   a c < D > b
+     < D >  ->  < D > a c
+            |   c < D > a
+            |   a c d
+     < E >  ->  a < B > b < A > c
+     < F >  ->  < C > < C > c }
+
+
+Símbolos Vazios
+
+Iteração | Variáveis
+0       | ∅
+1       | {<C, D>}
+2       | {<C>, <D>, <F>, <S>}
+3       | {<C>, <D>, <F>, <S>}
+
+G = ({S, C, D, F}, {a, b, c, d}, P, S)
+P = {< S >  ->  c d < C >
+     < C >  ->  a b < D > d
+            |   a b c
+            |   a c < D > b
+     < D >  ->  < D > a c
+            |   c < D > a
+            |   a c d
+     < F >  ->  < C > < C > c }
+
+Iteração | Variáveis            | Terminais
+0        | {<S>}                | ∅
+1        | {<S>, <C>, <D>}      | {a, b, c, d}
+2        | {<S>, <C>, <D>, <F>} | {a, b, c, d}
+3        | {<S>, <C>, <D>, <F>} | {a, b, c, d}
+
+G = ({S, C, D, F}, {a, b, c, d}, P, S)
+P = {< S >  ->  c d < C >
+     < C >  ->  a b < D > d
+            |   a b c
+            |   a c < D > b
+     < D >  ->  < D > a c
+            |   c < D > a
+            |   a c d
+     < F >  ->  < C > < C > c }
+
+Chomsky
+
+G = ({S, C, D, F, Ca0, Ca1, Ca2, Cb0, Cb1, Cb2, Cc0, Cc1, Cc2, Da0, Da1, Da2, Dc0, Dc1, Dc2, Dd}, {a, b, c, d}, P, S)
+P = {< S >  ->  < Sc > < Sd > < C >
+     < C >  ->  < Ca0 > < Cb0 > < D > < Cc0 >
+            |   < Ca1 > < Cb1 > < Cc1 >
+            |   < Ca2 > < Cc2 > < D > < Cb2 >
+     < D >  ->  < D > < Da0 > < Dc0 >
+            |   < Dc1 > < D > < Da1 >
+            |   < Da2 > < Dc2 > < Dd >
+     < F >  ->  < C > < C > < Fc >
+     < Sc > -> c
+     < Sd > -> d
+     < Ca0 > -> a
+     < Ca1 > -> a
+     < Ca2 > -> a
+     < Cb0 > -> b
+     < Cb1 > -> b
+     < Cb2 > -> b
+     < Cc0 > -> c
+     < Cc1 > -> c
+     < Cc2 > -> c
+     < Da0 > -> a 
+     < Da1 > -> a 
+     < Da2 > -> a     
+     < Dc0 > -> c
+     < Dc1 > -> c
+     < Dc2 > -> c
+     < Dd > -> d
+     < Fc > -> c }
+
+Forma <A> -> <B> <C>
+
+G = ({S, C, D, F, Sc, Sd, Ca0, Ca1, Ca2, Cb0, Cb1, Cb2, Cc0, Cc1, Cc2, Da0, Da1, Da2, Dc0, Dc1, Dc2, Dd, Fc, S0, C0, C1, C2, C3, C4, D0, D1, D2, F0}, {a, b, c, d}, P, S)
+P = {< S >  ->  < Sc > < S0 >
+     < C >  ->  < Ca0 > < C1 >
+            |   < Ca1 > < C2 >
+            |   < Ca2 > < C4 >
+     < D >  ->  < D > < D0 >
+            |   < Dc1 > < D1 >
+            |   < Da2 > < D2 >
+     < F >  ->  < C > < F0 >
+     < Sc > -> c
+     < Sd > -> d
+     < Ca0 > -> a
+     < Ca1 > -> a
+     < Ca2 > -> a
+     < Cb0 > -> b
+     < Cb1 > -> b
+     < Cb2 > -> b
+     < Cc0 > -> c
+     < Cc1 > -> c
+     < Cc2 > -> c
+     < Da0 > -> a 
+     < Da1 > -> a 
+     < Da2 > -> a     
+     < Dc0 > -> c
+     < Dc1 > -> c
+     < Dc2 > -> c
+     < Dd > -> d
+     < Fc > -> c
+     < S0 > -> < Sd > < C >
+     < C0 > -> < D > < Cc0 >
+     < C1 > -> < Cb0 > < C0 >
+     < C2 > -> < Cb1 > < Cc1 >
+     < C3 > -> < D > < Cb2 >
+     < C4 > -> < Cc2 > < C4 >
+     < D0 > -> < Da0 > < Dc0 >
+     < D1 > -> < D > < Da1 >
+     < D2 > -> < Dc2 > < Dd >
+     < F0 > -> < C > < Fc > }
