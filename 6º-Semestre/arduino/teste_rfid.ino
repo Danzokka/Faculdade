@@ -1,11 +1,3 @@
-/*
- *
- * All the resources for this project:
- * Modified by Handson Technology
- * www.handsontec.com
- * Created by Handsontec Tech team
- *
- */
 #include <SPI.h>
 #include <MFRC522.h>
 #define SS_PIN 10
@@ -13,7 +5,7 @@
 
 #define LED_PASS 2
 #define LED_DENIED 3
-#define BUZZER 7 // Defina o pino do buzzer aqui
+#define BUZZER 7
 
 #define NOTE_C 262
 #define NOTE_D 294
