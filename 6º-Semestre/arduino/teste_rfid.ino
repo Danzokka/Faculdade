@@ -23,17 +23,22 @@
 #define NOTE_A 440
 #define NOTE_B 494
 #define NOTE_C_SHARP 528
+#define NOTE_D_SHARP 588
+#define NOTE_G_SHARP 415
+#define NOTE_NULL 0
 
 MFRC522 mfrc522(SS_PIN, RST_PIN); // Create MFRC522 instance.
 
-void tom(char pino, int frequencia, int duracao){
-  float periodo = 1000.0/frequencia; //Periodo em ms
-  for (int i = 0; i< duracao/(periodo);i++){ //Executa a rotina de dentro o tanta de vezes que a frequencia desejada cabe dentro da duracao
-    digitalWrite(pino,HIGH);
-    delayMicroseconds(periodo*500); //Metade do periodo em ms
-    digitalWrite(pino, LOW);
-    delayMicroseconds(periodo*500);
-  }
+void tom(char pino, int frequencia, int duracao)
+{
+    float periodo = 1000.0 / frequencia; // Periodo em ms
+    for (int i = 0; i < duracao / (periodo); i++)
+    { // Executa a rotina de dentro o tanta de vezes que a frequencia desejada cabe dentro da duracao
+        digitalWrite(pino, HIGH);
+        delayMicroseconds(periodo * 500); // Metade do periodo em ms
+        digitalWrite(pino, LOW);
+        delayMicroseconds(periodo * 500);
+    }
 }
 
 void pass()
@@ -41,21 +46,46 @@ void pass()
     digitalWrite(LED_PASS, HIGH);
 
     // Melodia do Mario ganhando uma vida
-    int melody[] = {NOTE_E, NOTE_E, NOTE_E, NOTE_C, NOTE_E, NOTE_G, NOTE_G};
-    int durations[] = {100, 100, 100, 100, 100, 100, 100};
+    int melody[] = {
+        NOTE_E,
+        NOTE_NULL,
+        NOTE_E,
+        NOTE_NULL,
+        NOTE_E,
+        NOTE_NULL,
+        NOTE_C,
+        NOTE_E,
+        NOTE_G,
+        NOTE_G};
+    int durations[] = {150, 50, 150, 100, 200, 100, 150, 150, 150};
     playMelody(melody, durations, sizeof(melody) / sizeof(int));
 
     digitalWrite(LED_PASS, LOW);
 }
-
 
 void denied()
 {
     digitalWrite(LED_DENIED, HIGH);
 
     // Melodia do Mario perdendo uma vida no Super Mario World
-    int melody[] = {NOTE_C, NOTE_G, NOTE_F, NOTE_E, NOTE_C};
-    int durations[] = {100, 100, 100, 100, 100};
+    int melody[] = {
+        NOTE_D,
+        NOTE_D,
+        NOTE_D_SHARP,
+        NOTE_A,
+        NOTE_G_SHARP,
+        NOTE_G,
+        NOTE_F,
+        NOTE_D,
+        NOTE_F,
+        NOTE_C,
+        NOTE_C,
+        NOTE_D_SHARP,
+        NOTE_A,
+        NOTE_G_SHARP,
+        NOTE_G,
+        NOTE_F};
+    int durations[] = {100, 100, 100, 100, 100, 100, 200, 100, 100, 100, 100, 100, 100, 100, 100, 200};
     playMelody(melody, durations, sizeof(melody) / sizeof(int));
 
     digitalWrite(LED_DENIED, LOW);
@@ -101,7 +131,7 @@ void loop()
         content.concat(String(mfrc522.uid.uidByte[i], HEX));
     }
     content.toUpperCase();
-    Serial.println(content); // Print the content to the serial monitor
+    Serial.println(content);                   // Print the content to the serial monitor
     if (content.substring(1) == "B1 47 8A 1D") // change here the UID of the card/cards that you want to give access
     {
         pass();
