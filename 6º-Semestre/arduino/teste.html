@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Franzininho Server</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      html {
+        font-family: "Arial", sans-serif;
+        text-align: center;
+        background-color: #f0f0f0;
+        color: #333;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2em;
+      }
+      h1 {
+        margin-bottom: 1.5em;
+        color: #444;
+      }
+      h2 {
+        margin: 0.5em 0;
+        color: #666;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+        padding: 1.5em;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 90%;
+        max-width: 600px;
+        margin-bottom: 1.5em;
+      }
+      .btn-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+      }
+      .btn {
+        background-color: #28a745;
+        border: none;
+        color: #fff;
+        padding: 0.7em 1.2em;
+        font-size: 1.5em;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+      .btn:hover {
+        background-color: #218838;
+      }
+      .btn.OFF {
+        background-color: #dc3545;
+      }
+      .btn.OFF:hover {
+        background-color: #c82333;
+      }
+      .weather-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        gap: 1em;
+      }
+      .weather-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5em;
+        padding: 0.5em;
+        background: #f0f0f0;
+        border-radius: 5px;
+        width: 30%;
+      }
+      .weather-item i {
+        font-size: 1.5em;
+        color: #007bff;
+      }
+      p {
+        margin: 0.5em 0;
+        font-size: 1.2em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1 class="font-bold text-xl">Franzininho Web Server</h1>
+
+    <div class="container btn-container">
+      <h2 class="font-bold text-xl">Liga/Desliga</h2>
+      <a href="/liga" class="btn LED">LED</a>
+    </div>
+
+    <div class="container">
+      <h2 class="font-bold text-xl">Clima Atual</h2>
+      <div class="flex justify-center gap-4">
+        <div class="weather-item flex flex-col gap-4">
+          <i class="fas fa-wind"></i>
+          <p>
+            <span class="font-bold">Velocidade</span>:
+            <span class="text-gray-600 font-semibold">VELOCIDADE m/s</span>
+          </p>
+        </div>
+        <div class="weather-item">
+          <i class="fas fa-thermometer-half"></i>
+          <p>
+            <span class="font-bold">Temperatura</span>:
+            <span class="text-gray-600 font-semibold">TEMPERATURA °C</span>
+          </p>
+        </div>
+        <div class="weather-item">
+          <i class="fas fa-tint"></i>
+          <p>
+            <span class="font-bold">Umidade</span>:
+            <span class="text-gray-600 font-semibold">UMIDADE %</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

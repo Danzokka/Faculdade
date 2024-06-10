@@ -1,6 +1,6 @@
 {
     "board": "arduino:avr:uno",
     "programmer": "arduinoasisp",
-    "port": "COM9",
+    "port": "COM12",
     "sketch": "6º-Semestre\\arduino\\teste_rfid.ino"
 }
