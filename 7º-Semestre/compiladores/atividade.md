@@ -44,8 +44,7 @@ First (E) = {x, y, z}
 Follow (A) = Follow(A') = {), $}
 Follow (B) = Follow(B') = {+, -, ), $}
 Follow (C) = Follow(C') = {*, /, +, -, ), $}
-Follow (D) = Follow(D') = {^, *, /, +, -, ), $}
-Follow (E) = {^, *, /, +, -, ), $}
+Follow (D) = Follow (E) = {^, *, /, +, -, ), $}
 ```
 
 #### Tabela de Análise Preditiva
