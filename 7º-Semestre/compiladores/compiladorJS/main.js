@@ -11,7 +11,7 @@ class AnalisadorLexico {
         this.LINHA_REGEX = /^\d+/;
         this.PALAVRA_REGEX = /\b(rem|input|let|if|goto|print|end)\b/;
         this.IDENTIFICADOR_REGEX = /[a-zA-ZçãõâêîôûáéíóúàèìòùÇÃÕÂÊÎÔÛÁÉÍÓÚÀÈÌÒÙ][a-zA-Z0-9çãõâêîôûáéíóúàèìòùÇÃÕÂÊÎÔÛÁÉÍÓÚÀÈÌÒÙ]*/;
-        this.NUMERO_REGEX = /^\d+/;
+        this.NUMERO_REGEX = /^[+-]?\d+/;  // Ajustado para aceitar números com sinais (+ ou -)
         this.OPERADOR_REGEX = /^=/;  // Operador de atribuição
         this.OPERADOR_MATEMATICO_REGEX = /^[+\-*/%]/;  // Operadores matemáticos
         this.ESPACO_REGEX = /^\s+/;
@@ -19,12 +19,10 @@ class AnalisadorLexico {
 
     analise(linha) {
         let tokens = [];
-        let isFirstToken = true; // Controla se estamos no início da linha
-        let esperaAtribuicao = false; // Controla quando esperar o operador de atribuição "="
+        let isFirstToken = true;
 
         while (linha.length > 0) {
             if (isFirstToken && this.LINHA_REGEX.test(linha)) {
-                // O primeiro número deve ser tratado como número de linha
                 tokens.push({ tipo: 'NUMERO_LINHA', value: linha.match(this.LINHA_REGEX)[0] });
                 linha = linha.replace(this.LINHA_REGEX, '');
                 isFirstToken = false;
@@ -32,14 +30,8 @@ class AnalisadorLexico {
                 let palavra = linha.match(this.PALAVRA_REGEX)[0];
                 tokens.push({ tipo: 'PALAVRA', value: palavra });
 
-                // Se for um comentário (rem), ignorar o restante da linha
                 if (palavra === 'rem') {
-                    return tokens;  // Ignora o que vem depois de 'rem'
-                }
-
-                // Se for "let", espera o próximo token ser um identificador
-                if (palavra === 'let') {
-                    esperaAtribuicao = true;
+                    return tokens;
                 }
 
                 linha = linha.replace(this.PALAVRA_REGEX, '');
@@ -59,15 +51,8 @@ class AnalisadorLexico {
                 let identificador = linha.match(this.IDENTIFICADOR_REGEX)[0];
                 tokens.push({ tipo: 'IDENTIFICADOR', value: identificador });
                 linha = linha.replace(this.IDENTIFICADOR_REGEX, '');
-
-                // Se estamos esperando um operador de atribuição após o identificador da variável
-                if (esperaAtribuicao) {
-                    if (tokens.length > 0 && tokens[tokens.length - 1].tipo === 'IDENTIFICADOR') {
-                        esperaAtribuicao = false; // O identificador foi encontrado, agora esperamos o "="
-                    }
-                }
             } else if (this.ESPACO_REGEX.test(linha)) {
-                linha = linha.replace(this.ESPACO_REGEX, ''); // Ignora os espaços
+                linha = linha.replace(this.ESPACO_REGEX, ''); 
             } else {
                 throw new Error(`Token não reconhecido na linha: ${linha}`);
             }
@@ -115,47 +100,61 @@ class AnalisadorSintatico {
     }
 
     _analisaLet(tokens, index, linhaNumero) {
-        console.log("Tokens recebidos para LET:", tokens);
-
         // Verifica se o identificador (variável) está presente
         if (tokens[index].tipo === "IDENTIFICADOR") {
             let variable = tokens[index].value; // A variável que está sendo atribuída
             index++;
-
+    
             // Verifica se o próximo token é o operador de atribuição "="
             if (tokens[index].tipo === "OPERADOR" && tokens[index].value === "=") {
                 index++;
-
-                // Inicia o processamento da expressão após o operador "="
+    
                 let expressao = [];
+    
+                // Aceita um operador de sinal (+ ou -) seguido de um número ou identificador
+                if (tokens[index].tipo === "OPERADOR_MATEMATICO" && (tokens[index].value === "+" || tokens[index].value === "-")) {
+                    // Se houver um sinal, verificamos se o próximo token é um número
+                    let operadorSinal = tokens[index];
+                    index++;
+                    
+                    if (tokens[index].tipo === "NUMERO") {
+                        expressao.push({ tipo: "NUMERO", value: operadorSinal.value + tokens[index].value });
+                        index++;
+                    } else {
+                        throw new Error("Erro sintático: Esperado número após o sinal.");
+                    }
+                } else if (tokens[index].tipo === "NUMERO" || tokens[index].tipo === "IDENTIFICADOR") {
+                    // Sem sinal, apenas aceita número ou identificador
+                    expressao.push(tokens[index]);
+                    index++;
+                } else {
+                    throw new Error("Erro sintático: Esperado número ou identificador após '='.");
+                }
+    
+                // Continua processando a expressão, se houver mais tokens (operadores matemáticos e operandos)
                 while (index < tokens.length) {
                     let currentToken = tokens[index];
-
-                    // Verifica se o token é um identificador ou número
-                    if (currentToken.tipo === "IDENTIFICADOR" || currentToken.tipo === "NUMERO") {
-                        expressao.push(currentToken);
-                    }
-                    // Verifica se o token é um operador matemático
-                    else if (currentToken.tipo === "OPERADOR_MATEMATICO") {
+    
+                    if (currentToken.tipo === "OPERADOR_MATEMATICO") {
                         // Certifica-se de que a expressão tenha um operando antes do operador
                         if (expressao.length === 0 || (expressao[expressao.length - 1].tipo === "OPERADOR_MATEMATICO")) {
                             throw new Error("Erro sintático: Operador sem operandos válidos.");
                         }
                         expressao.push(currentToken);
-                    }
-                    // Se houver qualquer outro tipo de token, lança erro
-                    else {
+                    } else if (currentToken.tipo === "IDENTIFICADOR" || currentToken.tipo === "NUMERO") {
+                        expressao.push(currentToken);
+                    } else {
                         throw new Error("Erro sintático: Token inesperado na expressão LET.");
                     }
-
+    
                     index++;
                 }
-
+    
                 // Certifica-se de que a expressão termine com um operando
                 if (expressao.length > 0 && expressao[expressao.length - 1].tipo === "OPERADOR_MATEMATICO") {
                     throw new Error("Erro sintático: Expressão não pode terminar com um operador.");
                 }
-
+    
                 // Retorna o AST da instrução LET com a variável e a expressão
                 return { tipo: "LET", identificador: variable, expressao, linhaNumero };
             } else {
@@ -243,25 +242,42 @@ function formatarTokensLet(tokens, linhaOriginal) {
         return tokens; // Se não contiver 'let', retorna os tokens sem alterações
     }
 
-    // Divide a linha original em partes, ignorando espaços
-    const partesLinha = linhaOriginal.split(/\s+/);
+    // Divide a linha original por qualquer espaço ou operadores matemáticos
+    const partesLinha = linhaOriginal.split(/([+\-*/%]|\s+)/).filter(parte => parte.trim() !== '');
 
     // Inicializa um array para armazenar os tokens formatados
     const formattedTokens = [];
 
+    // Controla se estamos após o operador de atribuição para ajustar os tipos de números
+    let depoisDoIgual = false;
+
     // Percorre cada parte da linha original e encontra o token correspondente
     partesLinha.forEach(parte => {
-        if (parte === '') {
-            return; // Ignora partes vazias
-        }
         const tokenIndex = tokens.findIndex(token => token.value == parte);
+
         if (tokenIndex !== -1) {
-            formattedTokens.push(tokens[tokenIndex]);
+            let token = tokens[tokenIndex];
+
+            // Se encontrarmos o operador de atribuição "=", marcamos para verificar números posteriores
+            if (token.tipo === 'OPERADOR' && token.value === '=') {
+                depoisDoIgual = true;
+            }
+
+            // Ajusta o tipo de número após o operador de atribuição
+            if (depoisDoIgual && token.tipo === 'NUMERO_LINHA') {
+                token.tipo = 'NUMERO'; // Corrige o tipo de token para 'NUMERO'
+            }
+
+            formattedTokens.push(token);
+        } else if (/^[+\-*/%]$/.test(parte)) {
+            // Se for um operador matemático que não foi capturado como token
+            formattedTokens.push({ tipo: 'OPERADOR_MATEMATICO', value: parte });
         }
     });
 
     return formattedTokens;
 }
+
 
 // Função principal que integra todas as fases
 function compile(filename) {
