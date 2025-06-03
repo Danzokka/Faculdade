@@ -1,0 +1,30 @@
+Aluno: Rafael Dantas Boeira
+Matricula: 2122082004
+
+3.1 - O(n)
+
+3.2 - O(n)
+
+4.1 - O(log(n))
+
+4.2 - O(n)
+
+9.1 - O(n^3)
+
+9.2 - O(O(quick_sort())) => O(n*log(n)) no caso medio ou O (n^2) no pior caso
+
+10.1 - O(n*log(n))
+
+10.2 - O(n^2)
+
+12.1 - O(n^2)
+
+12.2 - O(2^n)
+
+13.1 - O(n^(1/2))
+
+13.2 - O(n)
+
+14.1 - O(V + E)
+
+14.2 - O(V + E)
