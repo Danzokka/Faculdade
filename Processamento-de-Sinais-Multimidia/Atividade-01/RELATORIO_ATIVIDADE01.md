@@ -4,6 +4,7 @@
 | ------------------------- | ---------- |
 | Artur da Silva Oliveira   | 2122082008 |
 | Juliana Alves Pacheco     | 2122082026 |
+| Júlia  Souza de Oliveira  | 2122082029 |
 | João Victor Alves Menezes | 2122082017 |
 | Rafael Dantas Boeira      | 2122082004 |
 
