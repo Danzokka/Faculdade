@@ -1,0 +1,73 @@
+>> run_atividade02
+=== Atividade 02 - Análise Espectral ===
+Iniciando análise (01-Sep-2025 02:34:50)
+
+Gerando sinais de teste...
+Sinais de teste gerados:
+- Ruído filtrado (fc = 2000 Hz)
+- Música: 8 notas musicais
+- Voz: sinal sintético com f0 = 150 ± 30 Hz
+- Frequência de amostragem: 16000 Hz
+- Duração: 4.0 segundos
+
+--- Analisando Ruído Filtrado ---
+Calculando valores de referência (sinal completo)...
+Aplicando método de Bartlett...
+Aplicando método de Welch...
+
+Resultados para Ruído Filtrado:
+  MNF Real:     1020.17 Hz
+  MNF Bartlett: 1021.34 Hz (erro: 0.11%)
+  MNF Welch:    1020.43 Hz (erro: 0.03%)
+
+  MDF Real:     998.46 Hz
+  MDF Bartlett: 990.04 Hz (erro: 0.84%)
+  MDF Welch:    990.26 Hz (erro: 0.82%)
+
+--- Analisando Música ---
+Calculando valores de referência (sinal completo)...
+Aplicando método de Bartlett...
+Aplicando método de Welch...
+
+Resultados para Música:
+  MNF Real:     495.65 Hz
+  MNF Bartlett: 495.77 Hz (erro: 0.02%)
+  MNF Welch:    495.44 Hz (erro: 0.04%)
+
+  MDF Real:     439.29 Hz
+  MDF Bartlett: 422.53 Hz (erro: 3.82%)
+  MDF Welch:    422.18 Hz (erro: 3.90%)
+
+--- Analisando Voz ---
+Calculando valores de referência (sinal completo)...
+Aplicando método de Bartlett...
+Aplicando método de Welch...
+
+Resultados para Voz:
+  MNF Real:     205.95 Hz
+  MNF Bartlett: 205.95 Hz (erro: 0.00%)
+  MNF Welch:    205.95 Hz (erro: 0.00%)
+
+  MDF Real:     169.14 Hz
+  MDF Bartlett: 160.25 Hz (erro: 5.26%)
+  MDF Welch:    160.25 Hz (erro: 5.26%)
+
+=== RESUMO FINAL ===
+Parâmetros utilizados:
+  - Janela: hann, 40 ms
+  - Overlap (Welch): 50%
+  - Frequência de amostragem: 16000 Hz
+
+Sinal           | MNF Real | MNF Bart | Erro%%   | MNF Welch | Erro%%   |         
+--------------------------------------------------------------------------------
+Ruído Filtrado  |   1020.2 |   1021.3 |     0.1 |    1020.4 |    0.0 |
+Música          |    495.7 |    495.8 |     0.0 |     495.4 |    0.0 |
+Voz             |    206.0 |    206.0 |     0.0 |     206.0 |    0.0 |
+
+Sinal           | MDF Real | MDF Bart | Erro%%   | MDF Welch | Erro%%   |         
+--------------------------------------------------------------------------------
+Ruído Filtrado  |    998.5 |    990.0 |     0.8 |     990.3 |    0.8 |
+Música          |    439.3 |    422.5 |     3.8 |     422.2 |    3.9 |
+Voz             |    169.1 |    160.2 |     5.3 |     160.2 |    5.3 |
+
+Análise concluída! Verifique as figuras geradas.
